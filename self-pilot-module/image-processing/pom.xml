@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>software.btech.ai</groupId>
+    <artifactId>self-pilot-module</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>AI-Pilot: Image Processing for Self-Pilot</name>
+  <artifactId>image-processing</artifactId>
+  <packaging>pom</packaging>
+
+  <scm>
+    <connection>scm:git:git@github.com:bsantanna/ai-pilot.git</connection>
+    <url>scm:git:git@github.com:bsantanna/ai-pilot.git</url>
+    <developerConnection>scm:git:git@github.com:bsantanna/ai-pilot.git</developerConnection>
+  </scm>
+
+  <modules>
+    <module>image-domain-functions</module>
+    <module>image-domain-objects</module>
+    <module>image-object-detection</module>
+    <module>image-lane-detection</module>
+    <module>image-pipeline</module>
+  </modules>
+
+</project>

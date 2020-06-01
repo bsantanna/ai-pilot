@@ -10,7 +10,7 @@
   <version>1.0.0</version>
 
   <!--Documentation-->
-  <name>AI-Pilot: autonomous pilot machine learning experiments</name>
+  <name>AI-Pilot: Artificial Intelligence Pilot</name>
   <url>https://github.com/bsantanna/ai-pilot</url>
 
   <properties>
@@ -53,7 +53,7 @@
     <qrgen.version>1.4</qrgen.version>
     <servlet.version>3.0.1</servlet.version>
     <slf4j.version>1.7.7</slf4j.version>
-    <spring.version>5.0.1.RELEASE</spring.version>
+    <spring.version>5.2.6.RELEASE</spring.version>
     <sonar.version>3.6.0.1398</sonar.version>
     <spring_data_redis.version>2.0.0.RELEASE</spring_data_redis.version>
     <spring_security.version>3.2.0.RELEASE</spring_security.version>
@@ -86,9 +86,9 @@
     </repository>
   </distributionManagement>
 
-<!--  <modules>-->
-<!--    <module>cv</module>-->
-<!--  </modules>-->
+  <modules>
+    <module>self-pilot-module</module>
+  </modules>
 
   <build>
     <plugins>
