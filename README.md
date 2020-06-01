@@ -1,4 +1,4 @@
 # AI-Pilot
 
-Autonomous Pilot experiments using [Microsoft AirSim](https://github.com/Microsoft/AirSim)
+AI-Pilot: autonomous pilot machine learning experiments using [Microsoft AirSim](https://github.com/Microsoft/AirSim)
 

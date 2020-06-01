@@ -1,6 +1,0 @@
-{
-  "SimMode" : "Car",
-  "SettingsVersion" : 1.2,
-  "SeeDocsAt" : "https://github.com/Microsoft/AirSim/blob/master/docs/settings.md",
-  "RpcEnabled": true
-}

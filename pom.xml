@@ -1,0 +1,313 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>software.btech.ai</groupId>
+  <artifactId>ai-pilot</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+
+  <!--Documentation-->
+  <name>AI-Pilot: autonomous pilot machine learning experiments</name>
+  <url>https://github.com/bsantanna/ai-pilot</url>
+
+  <properties>
+
+    <!--Global-->
+    <aggregate.report.dir>tests/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <github.global.server>github</github.global.server>
+    <dependency.locations.enabled>false</dependency.locations.enabled>
+    <sonar.host.url>https://secure.btech.software/sonarqube</sonar.host.url>
+    <sonar.login>?</sonar.login>
+    <sonar.password>?</sonar.password>
+
+    <!--Versions-->
+    <btech_api.version>4.0.0</btech_api.version>
+    <camel.version>2.20.0</camel.version>
+    <commons-codec.version>1.9</commons-codec.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-logging.version>1.1.1</commons-logging.version>
+    <commons-dbcp.version>1.4</commons-dbcp.version>
+    <gnu-trove.version>3.0.3</gnu-trove.version>
+    <hibernate.version>5.2.12.Final</hibernate.version>
+    <hibernate-validator.version>5.0.0.Final</hibernate-validator.version>
+    <h2.version>1.3.175</h2.version>
+    <java_ee.version>7.0</java_ee.version>
+    <jacoco.version>0.8.4</jacoco.version>
+    <jersey.version>2.26</jersey.version>
+    <jedis.version>2.9.0</jedis.version>
+    <jetty.version>9.2.0.v20140526</jetty.version>
+    <junit.version>4.11</junit.version>
+    <logback.version>1.1.1</logback.version>
+    <maven_compiler.version>3.7.0</maven_compiler.version>
+    <maven_clean.version>2.4.1</maven_clean.version>
+    <maven_jar.version>2.2</maven_jar.version>
+    <maven_site.version>3.3</maven_site.version>
+    <maven_war.version>2.1</maven_war.version>
+    <maven_dependency.version>2.5.1</maven_dependency.version>
+    <postgresql_driver.version>9.1-901.jdbc4</postgresql_driver.version>
+    <qrgen.version>1.4</qrgen.version>
+    <servlet.version>3.0.1</servlet.version>
+    <slf4j.version>1.7.7</slf4j.version>
+    <spring.version>5.0.1.RELEASE</spring.version>
+    <sonar.version>3.6.0.1398</sonar.version>
+    <spring_data_redis.version>2.0.0.RELEASE</spring_data_redis.version>
+    <spring_security.version>3.2.0.RELEASE</spring_security.version>
+    <validation-api.version>1.1.0.Final</validation-api.version>
+  </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:bsantanna/ai-pilot.git</connection>
+    <url>scm:git:git@github.com:bsantanna/ai-pilot.git</url>
+    <developerConnection>scm:git:git@github.com:bsantanna/ai-pilot.git</developerConnection>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>nexus-central</id>
+      <name>Central Repository Mirror</name>
+      <url>https://secure.btech.software/nexus/repository/maven-central/</url>
+    </repository>
+    <repository>
+      <id>nexus-btech</id>
+      <name>Btech Repository</name>
+      <url>https://secure.btech.software/nexus/repository/maven-releases/</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>nexus-btech</id>
+      <url>https://secure.btech.software/nexus/repository/maven-releases/</url>
+    </repository>
+  </distributionManagement>
+
+<!--  <modules>-->
+<!--    <module>cv</module>-->
+<!--  </modules>-->
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven_compiler.version}</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven_jar.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven_site.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.doxia</groupId>
+            <artifactId>doxia-module-markdown</artifactId>
+            <version>1.3</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+          <locales>en</locales>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>compile</includeScope>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>${sonar.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- Common inter module dependencies -->
+  <dependencies>
+    <!-- Java EE API -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${java_ee.version}</version>
+    </dependency>
+
+    <!-- Bean validation -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${validation-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.logging</groupId>
+          <artifactId>jboss-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Apache Commons -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>${commons-codec.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>${commons-lang.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>${commons-logging.version}</version>
+    </dependency>
+
+    <!-- Hibernate JPA -->
+<!--    <dependency>-->
+<!--      <groupId>org.hibernate</groupId>-->
+<!--      <artifactId>hibernate-core</artifactId>-->
+<!--      <version>${hibernate.version}</version>-->
+<!--    </dependency>-->
+
+    <!-- Database e Connection Pool -->
+<!--    <dependency>-->
+<!--      <groupId>postgresql</groupId>-->
+<!--      <artifactId>postgresql</artifactId>-->
+<!--      <version>${postgresql_driver.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>com.h2database</groupId>-->
+<!--      <artifactId>h2</artifactId>-->
+<!--      <scope>test</scope>-->
+<!--      <version>${h2.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>commons-dbcp</groupId>-->
+<!--      <artifactId>commons-dbcp</artifactId>-->
+<!--      <version>${commons-dbcp.version}</version>-->
+<!--    </dependency>-->
+
+    <!-- Junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+
+    <!--Spring DI-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-orm</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-jdbc</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-tx</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>coverage</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-agent</id>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
