@@ -19,4 +19,25 @@
     <developerConnection>scm:git:git@github.com:bsantanna/ai-pilot.git</developerConnection>
   </scm>
 
+  <dependencies>
+    <dependency>
+      <groupId>software.btech.basic-java-api</groupId>
+      <artifactId>core</artifactId>
+      <version>${btech_api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-exec</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>software.btech.ai</groupId>
+      <artifactId>image-domain-objects</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+  </dependencies>
+
 </project>

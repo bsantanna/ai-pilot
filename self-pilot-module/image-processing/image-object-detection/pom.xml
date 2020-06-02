@@ -19,4 +19,12 @@
     <developerConnection>scm:git:git@github.com:bsantanna/ai-pilot.git</developerConnection>
   </scm>
 
+  <dependencies>
+    <dependency>
+      <groupId>software.btech.ai</groupId>
+      <artifactId>image-domain-functions</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
 </project>
