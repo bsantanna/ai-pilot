@@ -4,9 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <bean class="software.btech.ai.pilot.imageprocessing.domain.Configuration">
+    <property name="airsimHost" value="#{systemEnvironment['AIRSIM_HOST']}"/>
     <property name="imageCaptureRepeatInterval" value="10"/>
     <property name="imageCaptureScript" value="image_capture.py"/>
+    <property name="imageStorageRoot" value="#{systemEnvironment['IMAGE_STORAGE_ROOT']}"/>
     <property name="pythonScriptRoot" value="#{systemEnvironment['PYTHON_SCRIPT_ROOT']}"/>
+    <property name="pythonEnvironmentRoot" value="#{systemEnvironment['PYTHON_ENVIRONMENT_ROOT']}"/>
     <property name="debugMode" value="true"/>
   </bean>
 

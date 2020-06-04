@@ -5,11 +5,17 @@ package software.btech.ai.pilot.imageprocessing.domain;
  */
 public class Configuration {
 
+  private String airsimHost;
+
+  private String pythonEnvironmentRoot;
+
   private String pythonScriptRoot;
 
   private Integer imageCaptureRepeatInterval;
 
   private String imageCaptureScript;
+
+  private String imageStorageRoot;
 
   private Boolean debugMode;
 
@@ -49,4 +55,27 @@ public class Configuration {
     this.debugMode = debugMode;
   }
 
+  public String getPythonEnvironmentRoot() {
+    return pythonEnvironmentRoot;
+  }
+
+  public void setPythonEnvironmentRoot(String pythonEnvironmentRoot) {
+    this.pythonEnvironmentRoot = pythonEnvironmentRoot;
+  }
+
+  public String getImageStorageRoot() {
+    return imageStorageRoot;
+  }
+
+  public void setImageStorageRoot(String imageStorageRoot) {
+    this.imageStorageRoot = imageStorageRoot;
+  }
+
+  public String getAirsimHost() {
+    return airsimHost;
+  }
+
+  public void setAirsimHost(String airsimHost) {
+    this.airsimHost = airsimHost;
+  }
 }

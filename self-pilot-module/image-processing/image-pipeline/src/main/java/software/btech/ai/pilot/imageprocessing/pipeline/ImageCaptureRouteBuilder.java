@@ -3,12 +3,14 @@ package software.btech.ai.pilot.imageprocessing.pipeline;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.exec.ExecBinding;
 import software.btech.ai.pilot.imageprocessing.domain.Configuration;
-import software.btech.ai.pilot.imageprocessing.function.format.PythonExecEndpointFormat;
-import software.btech.ai.pilot.imageprocessing.pipeline.processor.ImageOutputProcessor;
+import software.btech.ai.pilot.imageprocessing.function.format.PythonScriptEndpointFormat;
+import software.btech.ai.pilot.imageprocessing.processor.PythonScriptOutputProcessor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import static software.btech.ai.pilot.imageprocessing.domain.ExchangePropertyConstants.IMAGE_CAPTURE;
+import static software.btech.ai.pilot.imageprocessing.domain.ExchangePropertyConstants.IMAGE_PROCESSING_STEP;
 import static software.btech.ai.pilot.imageprocessing.lanedetection.LaneDetectionRouteBuilder.LANE_DETECTION_INPUT_ENDPOINT;
 import static software.btech.ai.pilot.imageprocessing.objectdetection.ObjectDetectionRouteBuilder.OBJECT_DETECTION_INPUT_ENDPOINT;
 
@@ -22,10 +24,10 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
   private Configuration configuration;
 
   @Inject
-  private PythonExecEndpointFormat pythonExecEndpointFormat;
+  private PythonScriptEndpointFormat pythonScriptEndpointFormat;
 
   @Inject
-  private ImageOutputProcessor imageOutputProcessor;
+  private PythonScriptOutputProcessor pythonScriptOutputProcessor;
 
   /**
    * Route configuration triggers every configured interval image capture event.
@@ -42,10 +44,11 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
         configuration.getImageCaptureRepeatInterval());
 
     from(timerEndpoint)
-      .to(pythonExecEndpointFormat.apply(configuration::getImageCaptureScript))
+      .setProperty(IMAGE_PROCESSING_STEP, constant(IMAGE_CAPTURE))
+      .to(pythonScriptEndpointFormat.apply(configuration::getImageCaptureScript, () -> IMAGE_CAPTURE + ".png"))
       .choice()
       .when(header(ExecBinding.EXEC_EXIT_VALUE).isEqualTo(0))
-      .process(imageOutputProcessor)
+      .process(pythonScriptOutputProcessor)
       .to(OBJECT_DETECTION_INPUT_ENDPOINT, LANE_DETECTION_INPUT_ENDPOINT);
 
   }
