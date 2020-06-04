@@ -4,6 +4,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.exec.ExecBinding;
 import software.btech.ai.pilot.imageprocessing.domain.Configuration;
 import software.btech.ai.pilot.imageprocessing.function.format.PythonExecEndpointFormat;
+import software.btech.ai.pilot.imageprocessing.pipeline.processor.ImageOutputProcessor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,6 +24,9 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
   @Inject
   private PythonExecEndpointFormat pythonExecEndpointFormat;
 
+  @Inject
+  private ImageOutputProcessor imageOutputProcessor;
+
   /**
    * Route configuration triggers every configured interval image capture event.
    * If image capture script process ends under expected conditions, body should contain
@@ -41,6 +45,7 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
       .to(pythonExecEndpointFormat.apply(configuration::getImageCaptureScript))
       .choice()
       .when(header(ExecBinding.EXEC_EXIT_VALUE).isEqualTo(0))
+      .process(imageOutputProcessor)
       .to(OBJECT_DETECTION_INPUT_ENDPOINT, LANE_DETECTION_INPUT_ENDPOINT);
 
   }

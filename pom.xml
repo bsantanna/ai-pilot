@@ -88,6 +88,7 @@
 
   <modules>
     <module>self-pilot-module</module>
+    <module>application</module>
   </modules>
 
   <build>

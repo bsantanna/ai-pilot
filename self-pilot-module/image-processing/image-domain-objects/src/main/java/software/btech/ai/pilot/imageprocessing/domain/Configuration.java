@@ -11,6 +11,8 @@ public class Configuration {
 
   private String imageCaptureScript;
 
+  private Boolean debugMode;
+
   public String getPythonScriptRoot() {
     return pythonScriptRoot;
   }
@@ -34,4 +36,17 @@ public class Configuration {
   public void setImageCaptureScript(String imageCaptureScript) {
     this.imageCaptureScript = imageCaptureScript;
   }
+
+  public Boolean isDebugEnabled() {
+    return getDebugMode();
+  }
+
+  public Boolean getDebugMode() {
+    return debugMode;
+  }
+
+  public void setDebugMode(Boolean debugMode) {
+    this.debugMode = debugMode;
+  }
+
 }
