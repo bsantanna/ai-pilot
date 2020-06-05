@@ -15,6 +15,8 @@ public class Configuration {
 
   private String imageCaptureScript;
 
+  private String laneDetectionImageMaskScript;
+
   private String imageStorageRoot;
 
   private Boolean debugMode;
@@ -77,5 +79,13 @@ public class Configuration {
 
   public void setAirsimHost(String airsimHost) {
     this.airsimHost = airsimHost;
+  }
+
+  public String getLaneDetectionImageMaskScript() {
+    return laneDetectionImageMaskScript;
+  }
+
+  public void setLaneDetectionImageMaskScript(String laneDetectionImageMaskScript) {
+    this.laneDetectionImageMaskScript = laneDetectionImageMaskScript;
   }
 }

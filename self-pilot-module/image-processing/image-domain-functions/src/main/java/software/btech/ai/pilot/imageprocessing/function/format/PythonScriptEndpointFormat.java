@@ -20,7 +20,7 @@ public class PythonScriptEndpointFormat implements BiFunction<Supplier<String>, 
   public String apply(Supplier<String> pythonScriptSupplier, Supplier<String> filenameSupplier) {
     String fileSeparator = System.getProperty("file.separator");
     return String.format(
-      "exec:%s%sbin%spython3?args=%s%s%s %s%s%s %s",
+      "exec:%s%sbin%spython3?args=%s%s%s %s%s%s",
 
       // python bin path with conda env
       configuration.getPythonEnvironmentRoot(),
@@ -35,10 +35,7 @@ public class PythonScriptEndpointFormat implements BiFunction<Supplier<String>, 
       // filename path
       configuration.getImageStorageRoot(),
       fileSeparator,
-      filenameSupplier.get(),
-
-      // airsim hostname
-      configuration.getAirsimHost()
+      filenameSupplier.get()
     );
   }
 

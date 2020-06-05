@@ -8,6 +8,7 @@
     <property name="imageCaptureRepeatInterval" value="10"/>
     <property name="imageCaptureScript" value="image_capture.py"/>
     <property name="imageStorageRoot" value="#{systemEnvironment['IMAGE_STORAGE_ROOT']}"/>
+    <property name="laneDetectionImageMaskScript" value="lane_detection_image_mask.py" />
     <property name="pythonScriptRoot" value="#{systemEnvironment['PYTHON_SCRIPT_ROOT']}"/>
     <property name="pythonEnvironmentRoot" value="#{systemEnvironment['PYTHON_ENVIRONMENT_ROOT']}"/>
     <property name="debugMode" value="true"/>

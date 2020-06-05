@@ -16,8 +16,7 @@ def main():
     for response in responses:
         if response.compress:
             airsim.write_file(filename, response.image_data_uint8)
-
-    print(filename, end=" ")
+            print(filename, end=" ")
 
 
 if __name__ == '__main__':
