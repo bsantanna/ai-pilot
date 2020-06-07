@@ -17,6 +17,8 @@ public class Configuration {
 
   private String laneDetectionImageMaskScript;
 
+  private String laneDetectionImagePerspectiveScript;
+
   private String imageStorageRoot;
 
   private Boolean debugMode;
@@ -87,5 +89,13 @@ public class Configuration {
 
   public void setLaneDetectionImageMaskScript(String laneDetectionImageMaskScript) {
     this.laneDetectionImageMaskScript = laneDetectionImageMaskScript;
+  }
+
+  public String getLaneDetectionImagePerspectiveScript() {
+    return laneDetectionImagePerspectiveScript;
+  }
+
+  public void setLaneDetectionImagePerspectiveScript(String laneDetectionImagePerspectiveScript) {
+    this.laneDetectionImagePerspectiveScript = laneDetectionImagePerspectiveScript;
   }
 }
