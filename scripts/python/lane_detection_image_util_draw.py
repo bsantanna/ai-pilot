@@ -7,7 +7,7 @@ def quadrilateral_points(input_image, vertices):
     output_image = np.copy(input_image)
     color = [255, 0, 0]  # Red
     thickness = 1
-    radius = 5
+    radius = 1
     x0, y0 = vertices[0]
     x1, y1 = vertices[1]
     x2, y2 = vertices[2]
@@ -33,3 +33,5 @@ def quadrilateral_lines(input_image, vertices):
     cv2.line(output_images, (x2, y2), (x3, y3), color, thickness)
     cv2.line(output_images, (x3, y3), (x0, y0), color, thickness)
     return output_images
+
+

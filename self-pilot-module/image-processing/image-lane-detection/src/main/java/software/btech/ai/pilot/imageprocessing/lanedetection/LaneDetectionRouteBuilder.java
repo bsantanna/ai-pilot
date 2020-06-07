@@ -42,7 +42,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
     configureImageMaskRoute();
-    // configureImagePerspectiveRoute();
+    configureImagePerspectiveRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }

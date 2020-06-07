@@ -1,5 +1,9 @@
 import sys
 
+import cv2
+import lane_detection_image_util_transform as util_transform
+import matplotlib.pyplot as plt
+
 
 # Lane detection / image perspective script
 # Used to project warp perspective from "above to ground" view
@@ -9,7 +13,11 @@ import sys
 #
 
 def transform_image(input_image_path, output_image_path):
-    print(input_image_path)
+    input_image = cv2.imread(input_image_path)
+    output_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+    output_image = util_transform.apply_distortion(output_image)
+    plt.imsave(output_image_path, output_image)
+    print(output_image_path)
 
 
 def main():

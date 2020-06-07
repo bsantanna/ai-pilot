@@ -1,9 +1,9 @@
 import sys
 
 import cv2
-import lane_detection_image_draw_utils as draw
+import lane_detection_image_util_draw as util_draw
+import lane_detection_image_util_transform as util_transform
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 # Lane detection / image mask script
@@ -22,19 +22,12 @@ def transform_image(input_image_path, output_image_path):
 
 
 def draw_warp_overlay_mask(input_image):
-    output_image = draw.quadrilateral_points(input_image, get_warp_projection_vertices(input_image))
-    output_image = draw.quadrilateral_lines(output_image, get_warp_projection_vertices(input_image))
+    output_image = util_draw.quadrilateral_points(
+        input_image, util_transform.get_warped_projection_vertices(input_image))
+    output_image = util_draw.quadrilateral_lines(
+        output_image, util_transform.get_warped_projection_vertices(input_image))
+
     return output_image
-
-
-def get_warp_projection_vertices(input_image):
-    height, width = input_image.shape[:2]
-    return np.float32([
-        [width * 0.1640, height * 0.9722],
-        [width * 0.4453, height * 0.6388],
-        [width * 0.5507, height * 0.6388],
-        [width * 0.8398, height * 0.9722]
-    ])
 
 
 def main():
