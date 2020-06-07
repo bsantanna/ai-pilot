@@ -1,6 +1,7 @@
 import sys
 
 import cv2
+import lane_detection_image_draw_utils as draw
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -13,27 +14,27 @@ import numpy as np
 #
 
 def transform_image(input_image_path, output_image_path):
-    image = cv2.imread(input_image_path)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    height = image.shape[0]
-    width = image.shape[1]
-    vertices = [
-        (0, height),
-        (width / 2, height / 4),
-        (width, height)
-    ]
-    masked_image = apply_mask(image, np.array([vertices], np.int32))
-    plt.imsave(output_image_path, masked_image)
+    input_image = cv2.imread(input_image_path)
+    output_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+    output_image = draw_warp_overlay_mask(output_image)
+    plt.imsave(output_image_path, output_image)
     print(output_image_path)
 
 
-def apply_mask(img, vertices):
-    mask = np.zeros_like(img)
-    channel_count = img.shape[2]
-    match_mask_color = (255,) * channel_count
-    cv2.fillPoly(mask, vertices, match_mask_color)
-    masked_image = cv2.bitwise_and(img, mask)
-    return masked_image
+def draw_warp_overlay_mask(input_image):
+    output_image = draw.quadrilateral_points(input_image, get_warp_projection_vertices(input_image))
+    output_image = draw.quadrilateral_lines(output_image, get_warp_projection_vertices(input_image))
+    return output_image
+
+
+def get_warp_projection_vertices(input_image):
+    height, width = input_image.shape[:2]
+    return np.float32([
+        [width * 0.1640, height * 0.9722],
+        [width * 0.4453, height * 0.6388],
+        [width * 0.5507, height * 0.6388],
+        [width * 0.8398, height * 0.9722]
+    ])
 
 
 def main():

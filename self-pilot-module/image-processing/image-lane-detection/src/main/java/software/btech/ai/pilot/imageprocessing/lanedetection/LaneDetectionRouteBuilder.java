@@ -42,7 +42,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   @Override
   public void configure() throws Exception {
     configureImageMaskRoute();
-    configureImagePerspectiveRoute();
+    // configureImagePerspectiveRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }
@@ -88,8 +88,8 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       configuration::getLaneDetectionImageMaskScript,
       () -> LANE_DETECTION_IMAGE_MASK_ENDPOINT,
       () -> IMAGE_CAPTURE + ".png",
-      () -> LANE_DETECTION_IMAGE_MASK + ".png",
-      () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT
+      () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
+      () -> LANE_DETECTION_IMAGE_MASK + ".png"
     );
   }
 
@@ -102,8 +102,8 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       configuration::getLaneDetectionImagePerspectiveScript,
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
       () -> LANE_DETECTION_IMAGE_MASK + ".png",
-      () -> LANE_DETECTION_IMAGE_PERSPECTIVE + ".png",
-      () -> LANE_DETECTION_IMAGE_COLOR_FILTER_ENDPOINT
+      () -> LANE_DETECTION_IMAGE_COLOR_FILTER_ENDPOINT,
+      () -> LANE_DETECTION_IMAGE_PERSPECTIVE + ".png"
     );
   }
 
