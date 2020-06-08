@@ -5,7 +5,7 @@
 
   <bean class="software.btech.ai.pilot.imageprocessing.domain.Configuration">
     <property name="airsimHost" value="#{systemEnvironment['AIRSIM_HOST']}"/>
-    <property name="imageCaptureRepeatInterval" value="10"/>
+    <property name="imageCaptureRepeatInterval" value="5"/>
     <property name="imageCaptureScript" value="image_capture.py"/>
     <property name="imageStorageRoot" value="#{systemEnvironment['IMAGE_STORAGE_ROOT']}"/>
     <property name="laneDetectionImageMaskScript" value="lane_detection_image_mask.py" />

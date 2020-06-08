@@ -1,21 +1,23 @@
 import cv2
 import numpy as np
 
+
 # Utility function which applies distortion to image
 def apply_distortion(input_image):
     image_size = (input_image.shape[1], input_image.shape[0])
-    input_vertices = get_warped_projection_vertices(input_image)
-    output_vertices = get_perspective_vertices(input_image)
+    input_vertices = get_undistorted_perspective_vertices(input_image)
+    output_vertices = get_distorted_perspective_vertices(input_image)
     m = cv2.getPerspectiveTransform(input_vertices, output_vertices)
     distorted = cv2.warpPerspective(input_image, m, image_size,
                                     flags=cv2.INTER_NEAREST)
     return distorted
 
+
 # Utility function which removes distortion from image
 def remove_distortion(input_image):
     image_size = (input_image.shape[1], input_image.shape[0])
-    input_vertices = get_warped_projection_vertices(input_image)
-    output_vertices = get_perspective_vertices(input_image)
+    input_vertices = get_undistorted_perspective_vertices(input_image)
+    output_vertices = get_distorted_perspective_vertices(input_image)
     m_inv = cv2.getPerspectiveTransform(output_vertices, input_vertices)
     original = cv2.warpPerspective(input_image, m_inv, image_size, flags=cv2.INTER_NEAREST)
     return original
@@ -32,8 +34,19 @@ def get_warped_projection_vertices(input_image):
     ])
 
 
-# Utility function which returns points of projected perspective vertices
-def get_perspective_vertices(input_image):
+# Utility function which returns undistorted perspective vertices
+def get_undistorted_perspective_vertices(input_image):
+    height, width = input_image.shape[:2]
+    return np.float32([
+        [width * 0.1640, height * 0.89722],
+        [width * 0.4453, height * 0.55],
+        [width * 0.5507, height * 0.55],
+        [width * 0.8398, height * 0.89722]
+    ])
+
+
+# Utility function which returns distorted perspective vertices
+def get_distorted_perspective_vertices(input_image):
     height, width = input_image.shape[:2]
     width_multiplier = 0.33
     perspective_min_width = width * width_multiplier
