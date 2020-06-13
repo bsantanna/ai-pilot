@@ -6,8 +6,8 @@ import numpy as np
 def quadrilateral_points(input_image, vertices):
     output_image = np.copy(input_image)
     color = [255, 0, 0]  # Red
-    thickness = 1
-    radius = 1
+    thickness = 2
+    radius = 2
     x0, y0 = vertices[0]
     x1, y1 = vertices[1]
     x2, y2 = vertices[2]
