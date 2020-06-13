@@ -10,6 +10,7 @@
     <property name="imageStorageRoot" value="#{systemEnvironment['IMAGE_STORAGE_ROOT']}"/>
     <property name="laneDetectionImageMaskScript" value="lane_detection_image_mask.py" />
     <property name="laneDetectionImagePerspectiveScript" value="lane_detection_image_perspective.py" />
+    <property name="laneDetectionImageEdgeScript" value="lane_detection_image_edge.py" />
     <property name="pythonScriptRoot" value="#{systemEnvironment['PYTHON_SCRIPT_ROOT']}"/>
     <property name="pythonEnvironmentRoot" value="#{systemEnvironment['PYTHON_ENVIRONMENT_ROOT']}"/>
     <property name="debugMode" value="true"/>
