@@ -3,6 +3,7 @@ package software.btech.ai.pilot.imageprocessing.lanedetection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.exec.ExecBinding;
 import software.btech.ai.pilot.imageprocessing.domain.Configuration;
+import software.btech.ai.pilot.imageprocessing.function.format.ImageFileNameFormat;
 import software.btech.ai.pilot.imageprocessing.function.format.ImageInputEndpointFormat;
 import software.btech.ai.pilot.imageprocessing.function.format.PythonScriptEndpointFormat;
 import software.btech.ai.pilot.imageprocessing.processor.PythonScriptOutputProcessor;
@@ -27,7 +28,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   private static final String LANE_DETECTION_IMAGE_EDGE_ENDPOINT = "seda:lane_detection_image_edge_endpoint";
 
-  private static final String LANE_DETECTION_IMAGE_PATH_ENDPOINT = "seda:lane_detection_image_path_endpoint";
+//  private static final String LANE_DETECTION_IMAGE_PATH_ENDPOINT = "seda:lane_detection_image_path_endpoint";
 
   @Inject
   private Configuration configuration;
@@ -39,13 +40,16 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   private ImageInputEndpointFormat imageInputEndpointFormat;
 
   @Inject
+  private ImageFileNameFormat imageFileNameFormat;
+
+  @Inject
   private PythonScriptOutputProcessor pythonScriptOutputProcessor;
 
   @Override
   public void configure() throws Exception {
     configureImageMaskRoute();
     configureImagePerspectiveRoute();
-    configureImageEdgeRoute();
+//    configureImageEdgeRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }
@@ -90,9 +94,9 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       () -> LANE_DETECTION_IMAGE_MASK,
       configuration::getLaneDetectionImageMaskScript,
       () -> LANE_DETECTION_IMAGE_MASK_ENDPOINT,
-      () -> IMAGE_CAPTURE + ".png",
+      () -> imageFileNameFormat.apply(IMAGE_CAPTURE),
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
-      () -> LANE_DETECTION_IMAGE_MASK + ".png"
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)
     );
   }
 
@@ -104,24 +108,24 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE,
       configuration::getLaneDetectionImagePerspectiveScript,
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
-      () -> LANE_DETECTION_IMAGE_MASK + ".png",
+      () -> imageFileNameFormat.apply(IMAGE_CAPTURE),
       () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-      () -> LANE_DETECTION_IMAGE_PERSPECTIVE + ".png"
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE)
     );
   }
 
   /**
    * Image edge detection step
    */
-  private void configureImageEdgeRoute() {
-    configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-      configuration::getLaneDetectionImageEdgeScript,
-      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-      () -> LANE_DETECTION_IMAGE_PERSPECTIVE + ".png",
-      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
-      () -> LANE_DETECTION_IMAGE_EDGE + ".png"
-    );
-  }
+//  private void configureImageEdgeRoute() {
+//    configureImageProcessingRoute(
+//      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
+//      configuration::getLaneDetectionImageEdgeScript,
+//      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
+//      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE),
+//      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
+//      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE)
+//    );
+//  }
 
 }

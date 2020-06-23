@@ -1,5 +1,6 @@
 import airsim
 import sys
+import cv2
 
 
 # Image Capture Script
@@ -15,7 +16,10 @@ def main():
 
     for response in responses:
         if response.compress:
-            airsim.write_file(filename, response.image_data_uint8)
+            png_filename = 'camera_raw.png'
+            airsim.write_file(png_filename, response.image_data_uint8)
+            png_image = cv2.imread(png_filename)
+            cv2.imwrite(filename, png_image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
             print(filename, end=" ")
 
 

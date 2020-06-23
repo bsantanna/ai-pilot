@@ -4,6 +4,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.exec.ExecBinding;
 import software.btech.ai.pilot.imageprocessing.domain.Configuration;
 import software.btech.ai.pilot.imageprocessing.function.format.AirSimInputEndpointFormat;
+import software.btech.ai.pilot.imageprocessing.function.format.ImageFileNameFormat;
 import software.btech.ai.pilot.imageprocessing.function.format.PythonScriptEndpointFormat;
 import software.btech.ai.pilot.imageprocessing.processor.PythonScriptOutputProcessor;
 
@@ -33,6 +34,9 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
   @Inject
   private PythonScriptOutputProcessor pythonScriptOutputProcessor;
 
+  @Inject
+  private ImageFileNameFormat imageFileNameFormat;
+
   /**
    * Route configuration triggers every configured interval image capture event.
    * If image capture script process ends under expected conditions, body should contain
@@ -48,7 +52,7 @@ public class ImageCaptureRouteBuilder extends RouteBuilder {
         configuration.getImageCaptureRepeatInterval());
 
     final String imageCaptureEndpoint = airSimInputEndpointFormat.apply(
-      () -> pythonScriptEndpointFormat.apply(configuration::getImageCaptureScript, () -> IMAGE_CAPTURE + ".png")
+      () -> pythonScriptEndpointFormat.apply(configuration::getImageCaptureScript, () -> imageFileNameFormat.apply(IMAGE_CAPTURE))
     );
 
     from(timerEndpoint)
