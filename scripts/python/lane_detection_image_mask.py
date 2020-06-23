@@ -3,8 +3,6 @@ import sys
 import cv2
 import lane_detection_image_util_draw as util_draw
 import lane_detection_image_util_transform as util_transform
-import matplotlib.pyplot as plt
-
 
 # Lane detection / image mask script
 # Used to select region of interest of image
@@ -17,7 +15,7 @@ def transform_image(input_image_path, output_image_path):
     input_image = cv2.imread(input_image_path)
     output_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
     output_image = draw_warp_overlay_mask(output_image)
-    plt.imsave(output_image_path, output_image)
+    cv2.imwrite(output_image_path, output_image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
     print(output_image_path)
 
 
