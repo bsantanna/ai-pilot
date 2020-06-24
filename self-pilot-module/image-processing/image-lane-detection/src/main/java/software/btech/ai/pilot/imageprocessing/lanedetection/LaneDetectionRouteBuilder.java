@@ -28,7 +28,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   private static final String LANE_DETECTION_IMAGE_EDGE_ENDPOINT = "seda:lane_detection_image_edge_endpoint";
 
-//  private static final String LANE_DETECTION_IMAGE_PATH_ENDPOINT = "seda:lane_detection_image_path_endpoint";
+  private static final String LANE_DETECTION_IMAGE_PATH_ENDPOINT = "seda:lane_detection_image_path_endpoint";
 
   @Inject
   private Configuration configuration;
@@ -49,7 +49,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   public void configure() throws Exception {
     configureImageMaskRoute();
     configureImagePerspectiveRoute();
-//    configureImageEdgeRoute();
+    configureImageEdgeRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }
@@ -117,15 +117,15 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   /**
    * Image edge detection step
    */
-//  private void configureImageEdgeRoute() {
-//    configureImageProcessingRoute(
-//      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-//      configuration::getLaneDetectionImageEdgeScript,
-//      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-//      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE),
-//      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
-//      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE)
-//    );
-//  }
+  private void configureImageEdgeRoute() {
+    configureImageProcessingRoute(
+      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
+      configuration::getLaneDetectionImageEdgeScript,
+      () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE),
+      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE)
+    );
+  }
 
 }
