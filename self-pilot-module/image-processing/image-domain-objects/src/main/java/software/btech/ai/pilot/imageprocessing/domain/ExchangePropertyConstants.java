@@ -19,4 +19,6 @@ public final class ExchangePropertyConstants {
 
   public static final String LANE_DETECTION_IMAGE_EDGE = "lane_detection_image_edge";
 
+  public static final String LANE_DETECTION_IMAGE_PATH = "lane_detection_image_path";
+
 }

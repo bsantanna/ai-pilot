@@ -21,6 +21,8 @@ public class Configuration {
 
   private String laneDetectionImageEdgeScript;
 
+  private String laneDetectionImagePathScript;
+
   private String imageStorageRoot;
 
   private Boolean debugMode;
@@ -107,5 +109,13 @@ public class Configuration {
 
   public void setLaneDetectionImageEdgeScript(String laneDetectionImageEdgeScript) {
     this.laneDetectionImageEdgeScript = laneDetectionImageEdgeScript;
+  }
+
+  public String getLaneDetectionImagePathScript() {
+    return laneDetectionImagePathScript;
+  }
+
+  public void setLaneDetectionImagePathScript(String laneDetectionImagePathScript) {
+    this.laneDetectionImagePathScript = laneDetectionImagePathScript;
   }
 }
