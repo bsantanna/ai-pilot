@@ -52,7 +52,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
     configureImageMaskRoute();
     configureImagePerspectiveRoute();
     configureImageEdgeRoute();
-    configureImagePathRoute();
+//    configureImagePathRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }

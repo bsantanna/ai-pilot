@@ -13,8 +13,7 @@ import lane_detection_image_util_transform as util_transform
 
 def transform_image(input_image_path, output_image_path):
     input_image = cv2.imread(input_image_path)
-    output_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
-    output_image = util_transform.apply_distortion(output_image)
+    output_image = util_transform.apply_distortion(input_image)
     cv2.imwrite(output_image_path, output_image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
     print(output_image_path)
 
