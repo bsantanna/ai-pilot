@@ -13,31 +13,20 @@ def apply_distortion(input_image):
     return distorted
 
 
-def apply_sobel_filter(img, sx=True, sy=False, kernel_size=3, thresh=(25, 200)):
+def apply_sobel_filter(img, kernel_size=3, thresh=(25, 200)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     blur = cv2.GaussianBlur(gray, (kernel_size * 3, kernel_size * 3), 0)
-    sobelx = cv2.Sobel(blur, cv2.CV_64F, 1, 0, ksize=kernel_size)
-    sobely = cv2.Sobel(blur, cv2.CV_64F, 0, 1, ksize=kernel_size)
-
-    if sx:
-        abs_sobel = np.absolute(sobelx)
-        scaled_sobel = np.uint8(255 * abs_sobel / np.max(abs_sobel))
-    elif sy:
-        abs_sobel = np.absolute(sobely)
-        scaled_sobel = np.uint8(255 * abs_sobel / np.max(abs_sobel))
-    else:
-        mag_sobel = np.sqrt(np.square(sobelx) + np.square(sobely))
-        scaled_sobel = np.uint8(255 * mag_sobel / np.max(mag_sobel))
-
+    sobel = cv2.Sobel(blur, cv2.CV_64F, 1, 0, ksize=kernel_size)
+    abs_sobel = np.absolute(sobel)
+    scaled_sobel = np.uint8(255 * abs_sobel / np.max(abs_sobel))
     sxbinary = np.zeros_like(scaled_sobel)
     sxbinary[(scaled_sobel >= thresh[0]) & (scaled_sobel <= thresh[1])] = 1
-
     return sxbinary
 
 
-def apply_canny_filter(img, kernel_size=7, thresh=(30, 75)):
+def apply_canny_filter(img, kernel_size=3, thresh=(50, 200)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    blurred = cv2.GaussianBlur(gray, (kernel_size, kernel_size), 0)
+    blurred = cv2.GaussianBlur(gray, (kernel_size * 3, kernel_size * 3), 0)
     return cv2.Canny(blurred, thresh[0], thresh[1])
 
 
@@ -48,7 +37,7 @@ def apply_edge_filter(img):
 
     combined_binary = np.zeros_like(gray)
     combined_binary[(sobel == 1) | (canny == 1)] = 1
-    return combined_binary
+    return np.uint8(255 * combined_binary)
 
 
 # Utility function which removes distortion from image

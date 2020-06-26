@@ -13,7 +13,7 @@ import lane_detection_image_util_transform as util_transform
 
 def transform_image(input_image_path, output_image_path):
     input_image = cv2.imread(input_image_path)
-    output_image = util_transform.apply_sobel_filter(input_image)
+    output_image = util_transform.apply_edge_filter(input_image)
     cv2.imwrite(output_image_path, output_image)
     print(output_image_path)
 
