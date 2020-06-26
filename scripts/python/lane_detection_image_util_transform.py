@@ -15,8 +15,11 @@ def apply_distortion(input_image):
 
 def apply_sobel_filter(img, kernel_size=3, thresh=(25, 200)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    blur = cv2.GaussianBlur(gray, (kernel_size * 3, kernel_size * 3), 0)
-    sobel = cv2.Sobel(blur, cv2.CV_64F, 1, 0, ksize=kernel_size)
+
+    gray = cv2.GaussianBlur(gray, (kernel_size * 3, kernel_size * 3), 0)
+    gray = cv2.bilateralFilter(gray, kernel_size * 3, thresh[0], thresh[1])
+
+    sobel = cv2.Sobel(gray, cv2.CV_64F, 1, 0, ksize=kernel_size)
     abs_sobel = np.absolute(sobel)
     scaled_sobel = np.uint8(255 * abs_sobel / np.max(abs_sobel))
     sxbinary = np.zeros_like(scaled_sobel)
@@ -26,8 +29,7 @@ def apply_sobel_filter(img, kernel_size=3, thresh=(25, 200)):
 
 def apply_canny_filter(img, kernel_size=3, thresh=(50, 200)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    blurred = cv2.GaussianBlur(gray, (kernel_size * 3, kernel_size * 3), 0)
-    return cv2.Canny(blurred, thresh[0], thresh[1])
+    return cv2.Canny(gray, thresh[0], thresh[1])
 
 
 def apply_edge_filter(img):
