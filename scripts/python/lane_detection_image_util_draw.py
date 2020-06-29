@@ -51,7 +51,11 @@ def get_normalized_pivots(img, left_pivot, right_pivot):
     return left_pivot, right_pivot
 
 
-def polynomial_curve_fit(img, rectangle_count=20, rect_width=75, rectangle_visible=False, min_pixel_density=100):
+def pixel_density_polynomial_curve_fit(img,
+                                       rectangle_count=20,
+                                       rect_width=75,
+                                       rectangle_visible=False,
+                                       min_pixel_density=100):
     out_img = np.dstack((img, img, img)) * 255
     rect_height = np.int(img.shape[0] / rectangle_count)
 
@@ -112,8 +116,8 @@ def polynomial_curve_fit(img, rectangle_count=20, rect_width=75, rectangle_visib
     right_path_index = np.concatenate(right_path_index)
 
     # save image
-    out_img[nonzero_y[left_path_index], nonzero_x[left_path_index]] = [0, 0, 255]
-    out_img[nonzero_y[right_path_index], nonzero_x[right_path_index]] = [0, 0, 255]
+    out_img[nonzero_y[left_path_index], nonzero_x[left_path_index]] = [255, 255, 0]
+    out_img[nonzero_y[right_path_index], nonzero_x[right_path_index]] = [255, 255, 0]
 
     # Extract left and right line pixel positions
     left_x = nonzero_x[left_path_index]
@@ -124,5 +128,24 @@ def polynomial_curve_fit(img, rectangle_count=20, rect_width=75, rectangle_visib
     # Fit a second order polynomial to each
     left_fit = np.polyfit(left_y, left_x, 2)
     right_fit = np.polyfit(right_y, right_x, 2)
+
+    # Generate x and y values for plotting
+    plot_y = np.linspace(0, out_img.shape[0] - 1, out_img.shape[0])
+    left_fit_x = left_fit[0] * plot_y ** 2 + left_fit[1] * plot_y + left_fit[2]
+    right_fit_x = right_fit[0] * plot_y ** 2 + right_fit[1] * plot_y + right_fit[2]
+
+    lane_img = np.zeros_like(out_img)
+    lane_width = 20
+    left_lane_rect_a = np.array([np.transpose(np.vstack([left_fit_x - lane_width, plot_y]))])
+    left_lane_rect_b = np.array([np.flipud(np.transpose(np.vstack([left_fit_x + lane_width, plot_y])))])
+    left_lane_pts = np.hstack((left_lane_rect_a, left_lane_rect_b))
+    right_lane_rect_a = np.array([np.transpose(np.vstack([right_fit_x - lane_width, plot_y]))])
+    right_lane_rect_b = np.array([np.flipud(np.transpose(np.vstack([right_fit_x + lane_width, plot_y])))])
+    right_lane_pts = np.hstack((right_lane_rect_a, right_lane_rect_b))
+
+    # Draw the lanes
+    cv2.fillPoly(lane_img, np.int_([left_lane_pts]), (255, 0, 0))
+    cv2.fillPoly(lane_img, np.int_([right_lane_pts]), (0, 0, 255))
+    out_img = cv2.addWeighted(out_img, 1, lane_img, 0.7, 0)
 
     return left_fit, right_fit, out_img

@@ -21,7 +21,7 @@ public class Configuration {
 
   private String laneDetectionImageEdgeScript;
 
-  private String laneDetectionImagePathScript;
+  private String laneDetectionImageCurveFitScript;
 
   private String imageStorageRoot;
 
@@ -111,11 +111,11 @@ public class Configuration {
     this.laneDetectionImageEdgeScript = laneDetectionImageEdgeScript;
   }
 
-  public String getLaneDetectionImagePathScript() {
-    return laneDetectionImagePathScript;
+  public String getLaneDetectionImageCurveFitScript() {
+    return laneDetectionImageCurveFitScript;
   }
 
-  public void setLaneDetectionImagePathScript(String laneDetectionImagePathScript) {
-    this.laneDetectionImagePathScript = laneDetectionImagePathScript;
+  public void setLaneDetectionImageCurveFitScript(String laneDetectionImageCurveFitScript) {
+    this.laneDetectionImageCurveFitScript = laneDetectionImageCurveFitScript;
   }
 }

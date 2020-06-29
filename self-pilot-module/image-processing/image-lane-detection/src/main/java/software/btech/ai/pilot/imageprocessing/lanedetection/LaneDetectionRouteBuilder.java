@@ -28,9 +28,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   private static final String LANE_DETECTION_IMAGE_EDGE_ENDPOINT = "seda:lane_detection_image_edge_endpoint";
 
-  private static final String LANE_DETECTION_IMAGE_PATH_ENDPOINT = "seda:lane_detection_image_path_endpoint";
-
-  private static final String LANE_DETECTION_CRUISE_CONTROL_ENDPOINT = "seda:lane_detection_cruise_control_endpoint";
+  private static final String LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT = "seda:lane_detection_image_curve_fit_endpoint";
 
   @Inject
   private Configuration configuration;
@@ -52,7 +50,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
     configureImageMaskRoute();
     configureImagePerspectiveRoute();
     configureImageEdgeRoute();
-//    configureImagePathRoute();
+    configureImageCurveFitRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
       .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
   }
@@ -126,22 +124,22 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       configuration::getLaneDetectionImageEdgeScript,
       () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
       () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE),
-      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
+      () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
       () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE)
     );
   }
 
   /**
-   * Image path trace route step
+   * Image curve fit route step
    */
-  private void configureImagePathRoute(){
+  private void configureImageCurveFitRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_PATH,
-      configuration::getLaneDetectionImagePathScript,
-      () -> LANE_DETECTION_IMAGE_PATH_ENDPOINT,
+      () -> LANE_DETECTION_IMAGE_CURVE_FIT,
+      configuration::getLaneDetectionImageCurveFitScript,
+      () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
       () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
-      () -> LANE_DETECTION_CRUISE_CONTROL_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PATH)
+      () -> "log",
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_CURVE_FIT)
     );
   }
 
