@@ -1,14 +1,14 @@
 import sys
 
 import cv2
-import lane_detection_image_util_transform as util_transform
+import image_util_transform as util_transform
 
 
 # Lane detection / image perspective script
 # Used to project warp perspective from "above to ground" view
 #
 # Usage:
-#   python3 lane_detection_image_perspective.py /path/to/out.png /path/to/in.png
+#   python3 image_perspective.py /path/to/out.png /path/to/in.png
 #
 
 def transform_image(input_image_path, output_image_path):

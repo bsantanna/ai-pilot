@@ -27,7 +27,7 @@ def apply_sobel_filter(img, kernel_size=3, thresh=(25, 200)):
     return sxbinary
 
 
-def apply_canny_filter(img, kernel_size=3, thresh=(50, 200)):
+def apply_canny_filter(img, thresh=(50, 200)):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     return cv2.Canny(gray, thresh[0], thresh[1])
 

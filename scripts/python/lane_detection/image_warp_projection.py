@@ -1,15 +1,15 @@
 import sys
 
 import cv2
-import lane_detection_image_util_draw as util_draw
-import lane_detection_image_util_transform as util_transform
+import image_util_draw as util_draw
+import image_util_transform as util_transform
 
 
 # Lane detection / image warp projection script
 # Warp point projection used for boundary object detection
 #
 # Usage:
-#   python3 lane_detection_image_warp_projection.py /path/to/out.png /path/to/in.png
+#   python3 image_warp_projection.py /path/to/out.png /path/to/in.png
 #
 
 def transform_image(input_image_path, output_image_path):
