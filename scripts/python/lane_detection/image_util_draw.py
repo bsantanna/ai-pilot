@@ -141,6 +141,7 @@ def pixel_density_curve_fit(img,
                             rectangle_count=20, rectangle_width=75, rectangle_visible=False,
                             lane_width=75,
                             min_pixel_density=100):
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     nonzero = img.nonzero()
     nonzero_y = np.array(nonzero[0])
     nonzero_x = np.array(nonzero[1])
