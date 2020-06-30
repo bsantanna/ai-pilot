@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Text formatting function which appends input file path to endpoint url
@@ -19,11 +20,12 @@ public class ImageInputEndpointFormat implements BiFunction<Supplier<String>, Su
   @Override
   public String apply(Supplier<String> pythonScriptEndpointSupplier, Supplier<String> inputFilenameSupplier) {
     String fileSeparator = System.getProperty("file.separator");
-    return String.format("%s %s%s%s",
-      pythonScriptEndpointSupplier.get(),
-      configuration.getImageStorageRoot(),
-      fileSeparator,
-      inputFilenameSupplier.get());
+    StringBuilder formatted = new StringBuilder();
+    formatted.append(pythonScriptEndpointSupplier.get());
+    Stream<String> inputFilename = Stream.of(inputFilenameSupplier.get().split(" "));
+    inputFilename.forEach(file ->
+      formatted.append(String.format(" %s%s%s", configuration.getImageStorageRoot(), fileSeparator, file)));
+    return formatted.toString();
   }
 
 }

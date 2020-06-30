@@ -30,6 +30,8 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   private static final String LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT = "seda:lane_detection_image_curve_fit_endpoint";
 
+  private static final String LANE_DETECTION_STATUS_ENDPOINT = "seda:lane_detection_status";
+
   @Inject
   private Configuration configuration;
 
@@ -137,8 +139,10 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       () -> LANE_DETECTION_IMAGE_CURVE_FIT,
       configuration::getLaneDetectionImageCurveFitScript,
       () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
-      () -> "log",
+      () -> String.format("%s %s",
+        imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
+        imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)),
+      () -> LANE_DETECTION_STATUS_ENDPOINT,
       () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_CURVE_FIT)
     );
   }
