@@ -15,7 +15,7 @@ public class Configuration {
 
   private String imageCaptureScript;
 
-  private String laneDetectionImageMaskScript;
+  private String laneDetectionImageWarpProjectionScript;
 
   private String laneDetectionImagePerspectiveScript;
 
@@ -87,12 +87,12 @@ public class Configuration {
     this.airsimHost = airsimHost;
   }
 
-  public String getLaneDetectionImageMaskScript() {
-    return laneDetectionImageMaskScript;
+  public String getLaneDetectionImageWarpProjectionScript() {
+    return laneDetectionImageWarpProjectionScript;
   }
 
-  public void setLaneDetectionImageMaskScript(String laneDetectionImageMaskScript) {
-    this.laneDetectionImageMaskScript = laneDetectionImageMaskScript;
+  public void setLaneDetectionImageWarpProjectionScript(String laneDetectionImageWarpProjectionScript) {
+    this.laneDetectionImageWarpProjectionScript = laneDetectionImageWarpProjectionScript;
   }
 
   public String getLaneDetectionImagePerspectiveScript() {

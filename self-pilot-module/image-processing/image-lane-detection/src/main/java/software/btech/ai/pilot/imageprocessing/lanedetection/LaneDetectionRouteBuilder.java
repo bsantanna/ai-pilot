@@ -22,7 +22,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   public static final String LANE_DETECTION_INPUT_ENDPOINT = "seda:lane_detection_input_endpoint";
 
-  private static final String LANE_DETECTION_IMAGE_MASK_ENDPOINT = "seda:lane_detection_image_mask_endpoint";
+  private static final String LANE_DETECTION_IMAGE_WARP_PROJECTION_ENDPOINT = "seda:lane_detection_image_warp_projection_endpoint";
 
   private static final String LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT = "seda:lane_detection_image_perspective_endpoint";
 
@@ -49,12 +49,12 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   @Override
   public void configure() throws Exception {
-    configureImageMaskRoute();
+    configureImageWarpProjectionRoute();
     configureImagePerspectiveRoute();
     configureImageEdgeRoute();
     configureImageCurveFitRoute();
     from(LANE_DETECTION_INPUT_ENDPOINT)
-      .to(LANE_DETECTION_IMAGE_MASK_ENDPOINT);
+      .to(LANE_DETECTION_IMAGE_WARP_PROJECTION_ENDPOINT);
   }
 
   /**
@@ -92,11 +92,11 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
   /**
    * Image mask route step
    */
-  private void configureImageMaskRoute() {
+  private void configureImageWarpProjectionRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_MASK,
-      configuration::getLaneDetectionImageMaskScript,
-      () -> LANE_DETECTION_IMAGE_MASK_ENDPOINT,
+      () -> LANE_DETECTION_IMAGE_WARP_PROJECTION,
+      configuration::getLaneDetectionImageWarpProjectionScript,
+      () -> LANE_DETECTION_IMAGE_WARP_PROJECTION_ENDPOINT,
       () -> imageFileNameFormat.apply(IMAGE_CAPTURE),
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
       () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)
@@ -143,7 +143,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
         imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
         imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)),
       () -> LANE_DETECTION_STATUS_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_CURVE_FIT)
+      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)
     );
   }
 
