@@ -3,7 +3,7 @@ import sys
 import cv2
 import image_util_draw as util_draw
 import image_util_transform as util_transform
-from domain_classes import LaneDetectionFeatures
+from domain import LaneDetectionFeatures
 
 
 # Lane detection / image curve fit script
