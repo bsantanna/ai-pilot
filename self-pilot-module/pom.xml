@@ -21,7 +21,10 @@
   </scm>
 
   <modules>
+    <module>domain-objects</module>
+    <module>domain-functions</module>
     <module>image-processing</module>
+    <module>status-reporting</module>
   </modules>
 
 </project>

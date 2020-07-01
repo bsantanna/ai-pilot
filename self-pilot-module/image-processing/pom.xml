@@ -21,8 +21,6 @@
   </scm>
 
   <modules>
-    <module>image-domain-functions</module>
-    <module>image-domain-objects</module>
     <module>image-object-detection</module>
     <module>image-lane-detection</module>
     <module>image-pipeline</module>

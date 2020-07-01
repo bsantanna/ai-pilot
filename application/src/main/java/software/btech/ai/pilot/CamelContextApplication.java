@@ -9,7 +9,9 @@ import org.apache.camel.spring.SpringCamelContext;
 import org.springframework.context.ApplicationContext;
 import software.btech.ai.pilot.imageprocessing.lanedetection.LaneDetectionRouteBuilder;
 import software.btech.ai.pilot.imageprocessing.objectdetection.ObjectDetectionRouteBuilder;
-import software.btech.ai.pilot.imageprocessing.pipeline.ImageCaptureRouteBuilder;
+import software.btech.ai.pilot.imageprocessing.pipeline.ImageProcessingRouteBuilder;
+import software.btech.ai.pilot.statusreporting.car.CarStatusCaptureRouteBuilder;
+import software.btech.ai.pilot.statusreporting.pipeline.StatusReportingRouteBuilder;
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -53,9 +55,11 @@ public class CamelContextApplication {
    */
   protected Iterable<Class<? extends RouteBuilder>> getRoutes() {
     return Arrays.asList(
-      ImageCaptureRouteBuilder.class,
+      CarStatusCaptureRouteBuilder.class,
+      ImageProcessingRouteBuilder.class,
       LaneDetectionRouteBuilder.class,
-      ObjectDetectionRouteBuilder.class
+      ObjectDetectionRouteBuilder.class,
+      StatusReportingRouteBuilder.class
     );
   }
 

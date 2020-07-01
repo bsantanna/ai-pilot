@@ -5,26 +5,18 @@
 
   <parent>
     <groupId>software.btech.ai</groupId>
-    <artifactId>image-processing</artifactId>
+    <artifactId>self-pilot-module</artifactId>
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <name>AI-Pilot: Image Object Detection</name>
-  <artifactId>image-object-detection</artifactId>
+  <name>AI-Pilot: Domain Objects</name>
+  <artifactId>domain-objects</artifactId>
 
   <scm>
     <connection>scm:git:git@github.com:bsantanna/ai-pilot.git</connection>
     <url>scm:git:git@github.com:bsantanna/ai-pilot.git</url>
     <developerConnection>scm:git:git@github.com:bsantanna/ai-pilot.git</developerConnection>
   </scm>
-
-  <dependencies>
-    <dependency>
-      <groupId>software.btech.ai</groupId>
-      <artifactId>domain-functions</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-  </dependencies>
 
 </project>

@@ -22,7 +22,7 @@
   <dependencies>
     <dependency>
       <groupId>software.btech.ai</groupId>
-      <artifactId>image-domain-functions</artifactId>
+      <artifactId>domain-functions</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

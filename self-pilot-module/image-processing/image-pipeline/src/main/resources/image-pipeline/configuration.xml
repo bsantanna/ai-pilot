@@ -3,15 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean class="software.btech.ai.pilot.imageprocessing.domain.Configuration">
+  <bean class="software.btech.ai.pilot.domain.Configuration">
     <property name="airsimHost" value="#{systemEnvironment['AIRSIM_HOST']}"/>
-    <property name="imageCaptureRepeatInterval" value="5"/>
+    <property name="evaluationRepeatInterval" value="30"/>
+    <property name="carStatusCaptureScript" value="adapter/airsim_adapter/car_status_capture.py"/>
     <property name="imageCaptureScript" value="adapter/airsim_adapter/image_capture.py"/>
     <property name="imageStorageRoot" value="#{systemEnvironment['IMAGE_STORAGE_ROOT']}"/>
-    <property name="laneDetectionImageWarpProjectionScript" value="lane_detection/image_warp_projection.py" />
-    <property name="laneDetectionImagePerspectiveScript" value="lane_detection/image_perspective.py" />
-    <property name="laneDetectionImageEdgeScript" value="lane_detection/image_edge.py" />
-    <property name="laneDetectionImageCurveFitScript" value="lane_detection/image_curve_fit.py" />
+    <property name="laneDetectionImageWarpProjectionScript" value="lane_detection/image_warp_projection.py"/>
+    <property name="laneDetectionImagePerspectiveScript" value="lane_detection/image_perspective.py"/>
+    <property name="laneDetectionImageEdgeScript" value="lane_detection/image_edge.py"/>
+    <property name="laneDetectionImageCurveFitScript" value="lane_detection/image_curve_fit.py"/>
     <property name="pythonScriptRoot" value="#{systemEnvironment['PYTHONPATH']}"/>
     <property name="pythonEnvironmentRoot" value="#{systemEnvironment['PYTHON_ENVIRONMENT_ROOT']}"/>
     <property name="debugMode" value="true"/>

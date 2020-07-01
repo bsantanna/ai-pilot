@@ -5,13 +5,13 @@
 
   <parent>
     <groupId>software.btech.ai</groupId>
-    <artifactId>image-processing</artifactId>
+    <artifactId>status-reporting</artifactId>
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <name>AI-Pilot: Image Object Detection</name>
-  <artifactId>image-object-detection</artifactId>
+  <name>AI-Pilot: Car Status</name>
+  <artifactId>car-status</artifactId>
 
   <scm>
     <connection>scm:git:git@github.com:bsantanna/ai-pilot.git</connection>

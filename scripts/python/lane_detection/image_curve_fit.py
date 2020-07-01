@@ -24,18 +24,19 @@ def curve_fit(edge_image_path, mask_image_path, output_image_path):
 
     output_image = cv2.addWeighted(mask_image, 1, curve_image, 0.7, 0)
     cv2.imwrite(output_image_path, output_image)
-    print(output_image_path)
 
     return left_fit, right_fit
 
 
+def save_features(json_filename, left_fit, right_fit):
+    features = LaneDetectionFeatures(left_fit, right_fit)
+    features.to_json(json_filename)
+    print(json_filename)
+
+
 def main():
     left_fit, right_fit = curve_fit(sys.argv[3], sys.argv[4], sys.argv[1])
-    features = LaneDetectionFeatures(left_fit, right_fit)
-    json_filename = sys.argv[2]
-    json_file = open(json_filename, "+w")
-    json_file.write(features.to_json())
-    json_file.close()
+    save_features(sys.argv[2], left_fit, right_fit)
 
 
 if __name__ == '__main__':

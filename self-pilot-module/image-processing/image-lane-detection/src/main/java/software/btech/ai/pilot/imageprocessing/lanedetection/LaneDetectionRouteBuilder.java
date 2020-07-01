@@ -2,18 +2,17 @@ package software.btech.ai.pilot.imageprocessing.lanedetection;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.exec.ExecBinding;
-import software.btech.ai.pilot.imageprocessing.domain.Configuration;
-import software.btech.ai.pilot.imageprocessing.function.format.ImageFileNameFormat;
-import software.btech.ai.pilot.imageprocessing.function.format.ImageInputEndpointFormat;
-import software.btech.ai.pilot.imageprocessing.function.format.JsonFileNameFormat;
-import software.btech.ai.pilot.imageprocessing.function.format.PythonScriptEndpointFormat;
-import software.btech.ai.pilot.imageprocessing.processor.PythonScriptOutputProcessor;
+import software.btech.ai.pilot.domain.ExchangePropertyConstants;
+import software.btech.ai.pilot.function.format.ImageFileNameFormat;
+import software.btech.ai.pilot.function.format.JsonFileNameFormat;
+import software.btech.ai.pilot.function.format.PythonScriptEndpointFormat;
+import software.btech.ai.pilot.domain.Configuration;
+import software.btech.ai.pilot.function.format.ImageInputEndpointFormat;
+import software.btech.ai.pilot.processor.PythonScriptOutputProcessor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.function.Supplier;
-
-import static software.btech.ai.pilot.imageprocessing.domain.ExchangePropertyConstants.*;
 
 /**
  * Lane Detection Route Builder
@@ -84,7 +83,7 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
     );
 
     from(inputEndpointUriSupplier.get())
-      .setProperty(IMAGE_PROCESSING_STEP, constant(stepSupplier.get()))
+      .setProperty(ExchangePropertyConstants.PROCESSING_STEP, constant(stepSupplier.get()))
       .to(imageInputEndpoint)
       .choice()
       .when(header(ExecBinding.EXEC_EXIT_VALUE).isEqualTo(0))
@@ -98,12 +97,12 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
    */
   private void configureImageWarpProjectionRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_WARP_PROJECTION,
+      () -> ExchangePropertyConstants.LANE_DETECTION_IMAGE_WARP_PROJECTION,
       configuration::getLaneDetectionImageWarpProjectionScript,
       () -> LANE_DETECTION_IMAGE_WARP_PROJECTION_ENDPOINT,
-      () -> imageFileNameFormat.apply(IMAGE_CAPTURE),
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.IMAGE_CAPTURE),
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_MASK)
     );
   }
 
@@ -112,12 +111,12 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
    */
   private void configureImagePerspectiveRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_PERSPECTIVE,
+      () -> ExchangePropertyConstants.LANE_DETECTION_IMAGE_PERSPECTIVE,
       configuration::getLaneDetectionImagePerspectiveScript,
       () -> LANE_DETECTION_IMAGE_PERSPECTIVE_ENDPOINT,
-      () -> imageFileNameFormat.apply(IMAGE_CAPTURE),
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.IMAGE_CAPTURE),
       () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE)
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_PERSPECTIVE)
     );
   }
 
@@ -126,12 +125,12 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
    */
   private void configureImageEdgeRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_EDGE,
+      () -> ExchangePropertyConstants.LANE_DETECTION_IMAGE_EDGE,
       configuration::getLaneDetectionImageEdgeScript,
       () -> LANE_DETECTION_IMAGE_EDGE_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_PERSPECTIVE),
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_PERSPECTIVE),
       () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE)
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_EDGE)
     );
   }
 
@@ -140,15 +139,15 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
    */
   private void configureImageCurveFitRoute() {
     configureImageProcessingRoute(
-      () -> LANE_DETECTION_IMAGE_CURVE_FIT,
+      () -> ExchangePropertyConstants.LANE_DETECTION_IMAGE_CURVE_FIT,
       configuration::getLaneDetectionImageCurveFitScript,
       () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
       () -> String.format("%s %s %s",
-        jsonFileNameFormat.apply(LANE_DETECTION_FEATURES),
-        imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
-        imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)),
+        jsonFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_FEATURES),
+        imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_EDGE),
+        imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_MASK)),
       () -> LANE_DETECTION_STATUS_ENDPOINT,
-      () -> imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)
+      () -> imageFileNameFormat.apply(ExchangePropertyConstants.LANE_DETECTION_IMAGE_MASK)
     );
   }
 
