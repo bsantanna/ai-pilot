@@ -19,7 +19,7 @@ def curve_fit(edge_image_path, mask_image_path, output_image_path):
     edge_image = cv2.imread(edge_image_path)
     mask_image = cv2.imread(mask_image_path)
 
-    left_fit, right_fit, curve_image = util_draw.pixel_density_curve_fit(edge_image)
+    left_fit, right_fit, curve_image = util_draw.pixel_density_curve_fit(edge_image, rectangle_visible=True)
     curve_image = util_transform.remove_distortion(curve_image)
 
     output_image = cv2.addWeighted(mask_image, 1, curve_image, 0.7, 0)
