@@ -15,7 +15,7 @@ from domain import LaneDetectionFeatures
 #   python3 image_curve_fit.py /path/to/out.png /path/to/edge_in.png /path/to/mask_in.png
 #
 
-def transform_image(edge_image_path, mask_image_path, output_image_path):
+def curve_fit(edge_image_path, mask_image_path, output_image_path):
     edge_image = cv2.imread(edge_image_path)
     mask_image = cv2.imread(mask_image_path)
 
@@ -26,15 +26,16 @@ def transform_image(edge_image_path, mask_image_path, output_image_path):
     cv2.imwrite(output_image_path, output_image)
     print(output_image_path)
 
-    features = LaneDetectionFeatures(left_fit, right_fit)
-    json_filename = '/'.join(output_image_path.split('/')[:-1]) + '/lane_detection_features.json'
-    json_file = open(json_filename, "+w")
-    json_file.write(features.to_json())
-    json_file.close()
+    return left_fit, right_fit
 
 
 def main():
-    transform_image(sys.argv[2], sys.argv[3], sys.argv[1])
+    left_fit, right_fit = curve_fit(sys.argv[2], sys.argv[3], sys.argv[1])
+    features = LaneDetectionFeatures(left_fit, right_fit)
+    json_filename = '/'.join(sys.argv[1].split('/')[:-1]) + '/lane_detection_features.json'
+    json_file = open(json_filename, "+w")
+    json_file.write(features.to_json())
+    json_file.close()
 
 
 if __name__ == '__main__':

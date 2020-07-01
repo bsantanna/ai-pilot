@@ -11,7 +11,7 @@ import image_util_transform as util_transform
 #   python3 image_edge.py /path/to/out.png /path/to/in.png
 #
 
-def transform_image(input_image_path, output_image_path):
+def edge_filter(input_image_path, output_image_path):
     input_image = cv2.imread(input_image_path)
     output_image = util_transform.apply_edge_filter(input_image)
     cv2.imwrite(output_image_path, output_image)
@@ -19,7 +19,7 @@ def transform_image(input_image_path, output_image_path):
 
 
 def main():
-    transform_image(sys.argv[2], sys.argv[1])
+    edge_filter(sys.argv[2], sys.argv[1])
 
 
 if __name__ == '__main__':
