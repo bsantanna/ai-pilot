@@ -5,6 +5,7 @@ import org.apache.camel.component.exec.ExecBinding;
 import software.btech.ai.pilot.imageprocessing.domain.Configuration;
 import software.btech.ai.pilot.imageprocessing.function.format.ImageFileNameFormat;
 import software.btech.ai.pilot.imageprocessing.function.format.ImageInputEndpointFormat;
+import software.btech.ai.pilot.imageprocessing.function.format.JsonFileNameFormat;
 import software.btech.ai.pilot.imageprocessing.function.format.PythonScriptEndpointFormat;
 import software.btech.ai.pilot.imageprocessing.processor.PythonScriptOutputProcessor;
 
@@ -43,6 +44,9 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
 
   @Inject
   private ImageFileNameFormat imageFileNameFormat;
+
+  @Inject
+  private JsonFileNameFormat jsonFileNameFormat;
 
   @Inject
   private PythonScriptOutputProcessor pythonScriptOutputProcessor;
@@ -139,7 +143,8 @@ public class LaneDetectionRouteBuilder extends RouteBuilder {
       () -> LANE_DETECTION_IMAGE_CURVE_FIT,
       configuration::getLaneDetectionImageCurveFitScript,
       () -> LANE_DETECTION_IMAGE_CURVE_FIT_ENDPOINT,
-      () -> String.format("%s %s",
+      () -> String.format("%s %s %s",
+        jsonFileNameFormat.apply(LANE_DETECTION_FEATURES),
         imageFileNameFormat.apply(LANE_DETECTION_IMAGE_EDGE),
         imageFileNameFormat.apply(LANE_DETECTION_IMAGE_MASK)),
       () -> LANE_DETECTION_STATUS_ENDPOINT,

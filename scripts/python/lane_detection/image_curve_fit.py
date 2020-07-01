@@ -12,7 +12,7 @@ from domain import LaneDetectionFeatures
 #  - based on pixel density pivot area
 #
 # Usage:
-#   python3 image_curve_fit.py /path/to/out.png /path/to/edge_in.png /path/to/mask_in.png
+#   python3 image_curve_fit.py /path/to/out.png /path/to/features.json /path/to/edge_in.png /path/to/mask_in.png
 #
 
 def curve_fit(edge_image_path, mask_image_path, output_image_path):
@@ -30,9 +30,9 @@ def curve_fit(edge_image_path, mask_image_path, output_image_path):
 
 
 def main():
-    left_fit, right_fit = curve_fit(sys.argv[2], sys.argv[3], sys.argv[1])
+    left_fit, right_fit = curve_fit(sys.argv[3], sys.argv[4], sys.argv[1])
     features = LaneDetectionFeatures(left_fit, right_fit)
-    json_filename = '/'.join(sys.argv[1].split('/')[:-1]) + '/lane_detection_features.json'
+    json_filename = sys.argv[2]
     json_file = open(json_filename, "+w")
     json_file.write(features.to_json())
     json_file.close()

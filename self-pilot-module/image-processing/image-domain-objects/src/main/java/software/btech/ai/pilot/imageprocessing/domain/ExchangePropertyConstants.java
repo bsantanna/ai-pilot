@@ -13,6 +13,8 @@ public final class ExchangePropertyConstants {
 
   public static final String IMAGE_CAPTURE = "image_capture";
 
+  public static final String LANE_DETECTION_FEATURES = "lane_detection_features";
+
   public static final String LANE_DETECTION_IMAGE_MASK = "lane_detection_image_mask";
 
   public static final String LANE_DETECTION_IMAGE_WARP_PROJECTION = "lane_detection_image_warp_projection";
