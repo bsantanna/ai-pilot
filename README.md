@@ -22,8 +22,9 @@ The following general algorithm used to generate the features describing the lan
 ![Edge detection](doc/images/edge_detection_example.jpg)
 1. [Polynomial curve fitting using pixel density stacked rectangles](notebooks/computer_vision/lane_detection/curve_fitting.ipynb)
 ![Curve fitting](doc/images/curve_fitting_example.jpg)
-1. Pipeline result
-![Pipeline result](doc/images/lane_detection_image_curve_fit.jpg)
+1. Example results (used as input features)
+   * [Result image](doc/images/lane_detection_image_curve_fit.jpg)
+   * [Result feature set](doc/json/lane_detection_features.json)
 
 ### Object detection
 Work in progress, intending to use YOLOv3 with a public trained model in first moment to generate features.
