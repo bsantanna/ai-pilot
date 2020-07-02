@@ -2,28 +2,31 @@
 
 AI-Pilot: autonomous pilot research using computer vision and deep learning. 
 Goal of this personal project is creating decision tree models for autonomous driving using different input datasets and
-popular machine learning frameworks.  
+popular machine learning frameworks.
+
+This is a work in progress...
 
 ---
-## Computer Vision
-
-Computer vision and image processing used for producing features from input images for curved lane detection and object 
-detection.  
+## Feature Producing
+Together with features available in input datasets, this project also generates own set of features using computer vision.
 
 ### Curved lane detection
 Curved lane detection is a fundamental problem for self-driving systems and so the starting point of this research. 
 The following general algorithm used to generate the features describing the lanes in a given input image:
 
-1. [Warp projection](notebooks/computer_vision/lane_detection/warp_projection.ipynb)
-1. [Perspective distortion](notebooks/computer_vision/lane_detection/perspective_distortion.ipynb)
+1. [Warp projection area](notebooks/computer_vision/lane_detection/warp_projection.ipynb)
+![Warp projection](doc/images/warp_projection_example.jpg)
+1. [Perspective distortion 'bird eye view'](notebooks/computer_vision/lane_detection/perspective_distortion.ipynb)
+![Perspective distortion](doc/images/perspective_distortion_example.jpg)
 1. [Edge detection using gaussian, bilinear, sobel and canny filters ](notebooks/computer_vision/lane_detection/edge_detection.ipynb)
 ![Edge detection](doc/images/edge_detection_example.jpg)
-1. [Curve fitting using pixel density stacked rectangles](notebooks/computer_vision/lane_detection/curve_fitting.ipynb)
+1. [Polynomial curve fitting using pixel density stacked rectangles](notebooks/computer_vision/lane_detection/curve_fitting.ipynb)
 ![Curve fitting](doc/images/curve_fitting_example.jpg)
+1. Pipeline result
+![Pipeline result](doc/images/lane_detection_image_curve_fit.jpg)
 
 ### Object detection
 Work in progress, intending to use YOLOv3 with a public trained model in first moment to generate features.
-
 
 ---
 ## References:
